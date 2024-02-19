@@ -23,10 +23,6 @@ class TimeConverterApplicationTests {
     private TestRestTemplate restTemplate;
 
     @Test
-    void contextLoads() {
-    }
-
-    @Test
     void testConvertEndpoint() {
         ResponseEntity<Map<String, String>> entity = this.restTemplate.exchange("http://localhost:" + port + "/convert?timeInSeconds=1708204116", HttpMethod.GET, null, new ParameterizedTypeReference<Map<String, String>>() {});
         assertThat(entity.getStatusCode().is2xxSuccessful()).isTrue();
