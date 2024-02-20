@@ -1,8 +1,6 @@
-package com.example.timeconverter;
+package com.example.timeconverter.service;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -10,11 +8,14 @@ import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
-public class TimeConverterController {
+@Service
+public class TimeConverterService {
 
-    @GetMapping("/convert")
-    public Map<String, String> convertTime(@RequestParam long timeInSeconds) {
+    public Map<String, String> convertTime(long timeInSeconds) {
+        if (timeInSeconds < 0) {
+            throw new IllegalArgumentException("Invalid input. Please enter a positive number.");
+        }
+
         Instant instant = Instant.ofEpochSecond(timeInSeconds);
 
         ZonedDateTime currentZone = instant.atZone(ZoneId.systemDefault());
