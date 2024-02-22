@@ -1,17 +1,16 @@
 package com.example.timeconverter.service;
 
 import org.springframework.stereotype.Service;
+import com.example.timeconverter.model.TimeResponse;
 
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class TimeConverterService {
 
-    public Map<String, String> convertTime(long timeInSeconds) {
+    public TimeResponse convertTime(long timeInSeconds) {
         if (timeInSeconds < 0) {
             throw new IllegalArgumentException("Invalid input. Please enter a positive number.");
         }
@@ -21,11 +20,6 @@ public class TimeConverterService {
         ZonedDateTime currentZone = instant.atZone(ZoneId.systemDefault());
         ZonedDateTime gmtZone = instant.atZone(ZoneId.of("GMT"));
 
-        Map<String, String> result = new HashMap<>();
-        result.put("currentTimezone", currentZone.toString());
-        result.put("GMT", gmtZone.toString());
-
-        return result;
+        return new TimeResponse(currentZone.toString(), gmtZone.toString());
     }
-
 }

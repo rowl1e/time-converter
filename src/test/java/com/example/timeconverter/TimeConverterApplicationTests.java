@@ -1,15 +1,13 @@
 package com.example.timeconverter;
 
+import com.example.timeconverter.model.TimeResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,12 +22,12 @@ class TimeConverterApplicationTests {
 
     @Test
     void testConvertEndpoint() {
-        ResponseEntity<Map<String, String>> entity = this.restTemplate.exchange("http://localhost:" + port + "/convert?timeInSeconds=1708204116", HttpMethod.GET, null, new ParameterizedTypeReference<Map<String, String>>() {});
+        ResponseEntity<TimeResponse> entity = this.restTemplate.exchange("http://localhost:" + port + "/convert?timeInSeconds=1708204116", HttpMethod.GET, null, TimeResponse.class);
         assertThat(entity.getStatusCode().is2xxSuccessful()).isTrue();
-        Map<String, String> body = entity.getBody();
+        TimeResponse body = entity.getBody();
         if (body != null) {
-            assertThat(body.get("currentTimezone")).isNotNull();
-            assertThat(body.get("GMT")).isNotNull();
+            assertThat(body.getCurrentTimezone()).isNotNull();
+            assertThat(body.getGMT()).isNotNull();
         }
     }
 
