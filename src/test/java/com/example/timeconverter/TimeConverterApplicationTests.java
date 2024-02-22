@@ -27,7 +27,7 @@ class TimeConverterApplicationTests {
         TimeResponse body = entity.getBody();
         if (body != null) {
             assertThat(body.getCurrentTimezone()).isNotNull();
-            assertThat(body.getGMT()).isNotNull();
+            assertThat(body.getGmt()).isNotNull();
         }
     }
 

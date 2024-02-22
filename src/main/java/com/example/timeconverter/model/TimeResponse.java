@@ -3,11 +3,11 @@ package com.example.timeconverter.model;
 public class TimeResponse {
 
     private String currentTimezone;
-    private String GMT;
+    private String gmt;
 
-    public TimeResponse(String currentTimezone, String GMT) {
+    public TimeResponse(String currentTimezone, String gmt) {
         this.currentTimezone = currentTimezone;
-        this.GMT = GMT;
+        this.gmt = gmt;
     }
 
     public String getCurrentTimezone() {
@@ -18,11 +18,11 @@ public class TimeResponse {
         this.currentTimezone = currentTimezone;
     }
 
-    public String getGMT() {
-        return GMT;
+    public String getGmt() {
+        return gmt;
     }
 
-    public void setGMT(String GMT) {
-        this.GMT = GMT;
+    public void setGmt(String gmt) {
+        this.gmt = gmt;
     }
 }
