@@ -20,6 +20,8 @@ public class ConversionHistoryController {
     private final ConversionTypeService typeService;
     private final TagService tagService;
 
+    private static final String CONVERSION_HISTORY_NOT_FOUND = "ConversionHistory not found with id ";
+
     public ConversionHistoryController(ConversionHistoryService historyService, ConversionTypeService typeService, TagService tagService) {
         this.historyService = historyService;
         this.typeService = typeService;
@@ -63,7 +65,7 @@ public class ConversionHistoryController {
     public ConversionHistory addTagToConversion(@PathVariable Long id, @PathVariable Long tagId) {
         // Получить ConversionHistory из базы данных
         ConversionHistory conversionHistory = historyService.getById(id)
-            .orElseThrow(() -> new RuntimeException("ConversionHistory not found with id " + id));
+            .orElseThrow(() -> new RuntimeException(CONVERSION_HISTORY_NOT_FOUND + id));
 
         // Получить тег из базы данных
         Tag tag = tagService.getById(tagId)
@@ -89,13 +91,13 @@ public class ConversionHistoryController {
     @GetMapping("/conversion/{id}")
     public ConversionHistory getById(@PathVariable Long id) {
         return historyService.getById(id)
-            .orElseThrow(() -> new RuntimeException("ConversionHistory not found with id " + id));
+            .orElseThrow(() -> new RuntimeException(CONVERSION_HISTORY_NOT_FOUND + id));
     }
 
     @PutMapping("/conversion/{id}")
     public ConversionHistory updateConversion(@PathVariable Long id, @RequestBody ConversionHistory updatedConversion) {
         ConversionHistory conversionHistory = historyService.getById(id)
-            .orElseThrow(() -> new RuntimeException("ConversionHistory not found with id " + id));
+            .orElseThrow(() -> new RuntimeException(CONVERSION_HISTORY_NOT_FOUND + id));
 
         // Обновить поля conversionHistory на основе updatedConversion
         conversionHistory.setTimeInSeconds(updatedConversion.getTimeInSeconds());
