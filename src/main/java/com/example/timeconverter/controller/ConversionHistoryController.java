@@ -68,11 +68,15 @@ public class ConversionHistoryController {
         return historyService.getAll();
     }
 
-    @PostMapping("/conversion/{id}/tags")
-    public ConversionHistory addTagToConversion(@PathVariable Long id, @RequestBody Tag tag) {
+    @PatchMapping("/conversion/{id}/tags/{tagId}")
+    public ConversionHistory addTagToConversion(@PathVariable Long id, @PathVariable Long tagId) {
         // Получить ConversionHistory из базы данных
         ConversionHistory conversionHistory = historyService.getById(id)
-            .orElseThrow(() -> new RuntimeException(CONVERSION_HISTORY_NOT_FOUND + id));
+            .orElseThrow(() -> new RuntimeException("ConversionHistory not found with id " + id));
+
+        // Получить тег из базы данных
+        Tag tag = tagService.getById(tagId)
+            .orElseThrow(() -> new RuntimeException("Tag not found with id " + tagId));
 
         // Добавить тег к ConversionHistory
         conversionHistory.getTags().add(tag);
