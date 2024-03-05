@@ -37,8 +37,15 @@ public class ConversionHistoryController {
         // Получить ConversionType из базы данных
         ConversionType conversionType = typeService.getByName(conversionTypeName);
 
+        // Если conversionTypeName равно "currentTimezone", используйте системный часовой пояс
+        ZoneId zoneId;
+        if ("currentTimezone".equals(conversionTypeName)) {
+            zoneId = ZoneId.systemDefault();
+        } else {
+            zoneId = ZoneId.of(conversionType.getName());
+        }
+
         // Convert timestamp to the specified timezone
-        ZoneId zoneId = ZoneId.of(conversionType.getName());
         Instant instant = Instant.ofEpochSecond(timeInSeconds);
         ZonedDateTime specifiedTimezone = instant.atZone(zoneId);
 
@@ -61,15 +68,11 @@ public class ConversionHistoryController {
         return historyService.getAll();
     }
 
-    @PatchMapping("/conversion/{id}/tags/{tagId}")
-    public ConversionHistory addTagToConversion(@PathVariable Long id, @PathVariable Long tagId) {
+    @PostMapping("/conversion/{id}/tags")
+    public ConversionHistory addTagToConversion(@PathVariable Long id, @RequestBody Tag tag) {
         // Получить ConversionHistory из базы данных
         ConversionHistory conversionHistory = historyService.getById(id)
             .orElseThrow(() -> new RuntimeException(CONVERSION_HISTORY_NOT_FOUND + id));
-
-        // Получить тег из базы данных
-        Tag tag = tagService.getById(tagId)
-            .orElseThrow(() -> new RuntimeException("Tag not found with id " + tagId));
 
         // Добавить тег к ConversionHistory
         conversionHistory.getTags().add(tag);
