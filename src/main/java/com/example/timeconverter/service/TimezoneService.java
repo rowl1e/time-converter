@@ -24,7 +24,7 @@ public class TimezoneService {
         if (timezone == null) {
             throw new IllegalArgumentException("Timezone cannot be null");
         }
-        LOGGER.info("Saving timezone {}", timezone);
+        LOGGER.info("Saving timezone");
         return repository.save(timezone);
     }
 
@@ -37,7 +37,7 @@ public class TimezoneService {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null");
         }
-        LOGGER.info("Getting timezone by name {}", name);
+        LOGGER.info("Getting timezone by name");
         return repository.findByName(name)
             .orElseThrow(() -> new RuntimeException("Timezone not found with name " + name));
     }
@@ -46,7 +46,7 @@ public class TimezoneService {
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
-        LOGGER.info("Getting timezone by id {}", id);
+        LOGGER.info("Getting timezone by id");
         return repository.findById(id);
     }
 
@@ -54,7 +54,7 @@ public class TimezoneService {
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
-        LOGGER.info("Deleting timezone by id {}", id);
+        LOGGER.info("Deleting timezone by id");
         repository.deleteById(id);
     }
 }

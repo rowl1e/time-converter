@@ -24,7 +24,7 @@ public class TagService {
         if (tag == null) {
             throw new IllegalArgumentException("Tag cannot be null");
         }
-        LOGGER.info("Saving tag {}", tag);
+        LOGGER.info("Saving tag");
         return repository.save(tag);
     }
 
@@ -37,7 +37,7 @@ public class TagService {
         if (ids == null) {
             throw new IllegalArgumentException("Ids cannot be null");
         }
-        LOGGER.info("Getting all tags by ids {}", ids);
+        LOGGER.info("Getting all tags by ids");
         return repository.findAllById(ids);
     }
 
@@ -45,7 +45,7 @@ public class TagService {
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
-        LOGGER.info("Deleting tag by id {}", id);
+        LOGGER.info("Deleting tag by id");
         repository.deleteById(id);
     }    
 
@@ -53,7 +53,7 @@ public class TagService {
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
-        LOGGER.info("Getting tag by id {}", id);
+        LOGGER.info("Getting tag by id");
         return repository.findById(id);
     }
 
@@ -61,7 +61,7 @@ public class TagService {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null");
         }
-        LOGGER.info("Getting tag by name {}", name);
+        LOGGER.info("Getting tag by name");
         return repository.findByName(name);
     }
 }

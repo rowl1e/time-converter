@@ -35,7 +35,7 @@ public class ConversionService {
         if (conversion == null) {
             throw new IllegalArgumentException("Conversion cannot be null");
         }
-        LOGGER.info("Saving conversion {}", conversion);
+        LOGGER.info("Saving conversion");
         return repository.save(conversion);
     }
 
@@ -48,7 +48,7 @@ public class ConversionService {
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
-        LOGGER.info("Getting conversion by id {}", id);
+        LOGGER.info("Getting conversion by id");
         return repository.findById(id);
     }
 
@@ -56,7 +56,7 @@ public class ConversionService {
         if (tag == null) {
             throw new IllegalArgumentException("Tag cannot be null");
         }
-        LOGGER.info("Getting all conversions by tag {}", tag);
+        LOGGER.info("Getting all conversions by tag");
         return repository.findAllByTagsContains(tag);
     }
 
@@ -64,7 +64,7 @@ public class ConversionService {
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
-        LOGGER.info("Deleting conversion by id {}", id);
+        LOGGER.info("Deleting conversion by id");
         repository.deleteById(id);
     }    
 
@@ -101,7 +101,7 @@ public class ConversionService {
         conversion.setConversionDate(ZonedDateTime.now());
         conversion.setTimezone(timezone);
 
-        LOGGER.info("Converting time for request {}", request);
+        LOGGER.info("Converting time for request");
         return conversion;
     }
 
