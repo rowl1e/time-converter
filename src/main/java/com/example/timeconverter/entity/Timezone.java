@@ -1,5 +1,7 @@
 package com.example.timeconverter.entity;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,13 +17,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Getter
 @Setter
-public class ConversionType {
+public class Timezone {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "conversionType")
+    @OneToMany(mappedBy = "timezone", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<ConversionHistory> conversionHistories;
+    private List<Conversion> conversions;
 }

@@ -1,4 +1,4 @@
-package com.example.timeconverter.model;
+package com.example.timeconverter.exception;
 
 public class ErrorResponse {
 

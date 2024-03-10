@@ -1,5 +1,6 @@
 package com.example.timeconverter.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,7 +12,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 @Entity
-public class ConversionHistory {
+public class Conversion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +22,10 @@ public class ConversionHistory {
     private String specifiedTimezone; 
     private ZonedDateTime conversionDate;
 
-    @ManyToOne
-    private ConversionType conversionType;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Timezone timezone;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Tag> tags;
 
     public Long getId() {
@@ -59,12 +60,12 @@ public class ConversionHistory {
         this.conversionDate = conversionDate;
     }
 
-    public ConversionType getConversionType() {
-        return conversionType;
+    public Timezone getTimezone() {
+        return timezone;
     }
 
-    public void setConversionType(ConversionType conversionType) {
-        this.conversionType = conversionType;
+    public void setTimezone(Timezone timezone) {
+        this.timezone = timezone;
     }
 
     public List<Tag> getTags() {

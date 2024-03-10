@@ -6,7 +6,7 @@ import com.example.timeconverter.entity.Tag;
 import com.example.timeconverter.service.TagService;
 
 @RestController
-@RequestMapping("/api/tags")
+@RequestMapping("/tag")
 public class TagController {
     private final TagService service;
 
@@ -33,10 +33,8 @@ public class TagController {
     public Tag update(@PathVariable Long id, @RequestBody Tag updatedTag) {
         Tag tag = service.getById(id)
             .orElseThrow(() -> new RuntimeException("Tag not found with id " + id));
-
-        // Обновить поля tag на основе updatedTag
+            
         tag.setName(updatedTag.getName());
-
         return service.save(tag);
     }
 }
