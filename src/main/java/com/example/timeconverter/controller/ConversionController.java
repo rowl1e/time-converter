@@ -18,6 +18,7 @@ public class ConversionController {
     private final TimezoneService timezoneService;
 
     private static final String CONVERSION_HISTORY_NOT_FOUND = "Conversion not found with id ";
+    private static final String NOT_FOUND = "not found";
 
     public ConversionController(ConversionService conversionService, TagService tagService, TimezoneService timezoneService) {
         this.conversionService = conversionService;
@@ -37,7 +38,7 @@ public class ConversionController {
         // Проверить, существует ли часовой пояс
         Timezone timezone = timezoneService.getByName(timezoneName);
         if (timezone == null) {
-            throw new IllegalArgumentException("Timezone not found with name " + timezoneName);
+            throw new IllegalArgumentException("Timezone" + NOT_FOUND);
         }
         
         request.setTimeInSeconds(timeInSeconds);
@@ -78,11 +79,11 @@ public class ConversionController {
             .orElseThrow(() -> new IllegalArgumentException(CONVERSION_HISTORY_NOT_FOUND + id));
 
         Tag tag = tagService.getById(tagId)
-            .orElseThrow(() -> new IllegalArgumentException("Tag not found with id " + tagId));
+            .orElseThrow(() -> new IllegalArgumentException("Tag" + NOT_FOUND));
 
         // Check if the tag is already associated with the conversion
         if (conversion.getTags().contains(tag)) {
-            throw new IllegalArgumentException("Tag with id " + tagId + " is already associated with conversion " + id);
+            throw new IllegalArgumentException("This tag is already associated with this conversion");
         }
 
         // Add the tag to Conversion
@@ -94,7 +95,7 @@ public class ConversionController {
     @GetMapping("/conversion/tag/{tagName}")
     public List<Conversion> getAllByTag(@PathVariable String tagName) {
         Tag tag = tagService.getByName(tagName)
-            .orElseThrow(() -> new RuntimeException("Tag not found with name " + tagName));
+            .orElseThrow(() -> new RuntimeException("Tag" + NOT_FOUND));
 
         return conversionService.getAllByTag(tag);
     }

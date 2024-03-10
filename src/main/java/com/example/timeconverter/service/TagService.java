@@ -22,7 +22,6 @@ public class TagService {
 
     public Tag save(Tag tag) {
         if (tag == null) {
-            LOGGER.error("Attempted to save null tag");
             throw new IllegalArgumentException("Tag cannot be null");
         }
         LOGGER.info("Saving tag {}", tag);
@@ -36,7 +35,6 @@ public class TagService {
 
     public List<Tag> getAllByIds(List<Long> ids) {
         if (ids == null) {
-            LOGGER.error("Ids cannot be null");
             throw new IllegalArgumentException("Ids cannot be null");
         }
         LOGGER.info("Getting all tags by ids {}", ids);
@@ -45,7 +43,6 @@ public class TagService {
 
     public void delete(Long id) {
         if (id == null) {
-            LOGGER.error("Id cannot be null");
             throw new IllegalArgumentException("Id cannot be null");
         }
         LOGGER.info("Deleting tag by id {}", id);
@@ -54,7 +51,6 @@ public class TagService {
 
     public Optional<Tag> getById(Long id) {
         if (id == null) {
-            LOGGER.error("Id cannot be null");
             throw new IllegalArgumentException("Id cannot be null");
         }
         LOGGER.info("Getting tag by id {}", id);
@@ -63,7 +59,6 @@ public class TagService {
 
     public Optional<Tag> getByName(String name) {
         if (name == null) {
-            LOGGER.error("Name cannot be null");
             throw new IllegalArgumentException("Name cannot be null");
         }
         LOGGER.info("Getting tag by name {}", name);

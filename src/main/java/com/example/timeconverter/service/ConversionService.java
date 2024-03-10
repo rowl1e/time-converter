@@ -33,7 +33,6 @@ public class ConversionService {
 
     public Conversion save(Conversion conversion) {
         if (conversion == null) {
-            LOGGER.error("Attempted to save null conversion");
             throw new IllegalArgumentException("Conversion cannot be null");
         }
         LOGGER.info("Saving conversion {}", conversion);
@@ -47,7 +46,6 @@ public class ConversionService {
 
     public Optional<Conversion> getById(Long id) {
         if (id == null) {
-            LOGGER.error("Id cannot be null");
             throw new IllegalArgumentException("Id cannot be null");
         }
         LOGGER.info("Getting conversion by id {}", id);
@@ -56,7 +54,6 @@ public class ConversionService {
 
     public List<Conversion> getAllByTag(Tag tag) {
         if (tag == null) {
-            LOGGER.error("Tag cannot be null");
             throw new IllegalArgumentException("Tag cannot be null");
         }
         LOGGER.info("Getting all conversions by tag {}", tag);
@@ -65,7 +62,6 @@ public class ConversionService {
 
     public void deleteById(Long id) {
         if (id == null) {
-            LOGGER.error("Id cannot be null");
             throw new IllegalArgumentException("Id cannot be null");
         }
         LOGGER.info("Deleting conversion by id {}", id);

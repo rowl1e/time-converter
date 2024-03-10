@@ -22,7 +22,6 @@ public class TimezoneService {
 
     public Timezone save(Timezone timezone) {
         if (timezone == null) {
-            LOGGER.error("Attempted to save null timezone");
             throw new IllegalArgumentException("Timezone cannot be null");
         }
         LOGGER.info("Saving timezone {}", timezone);
@@ -36,7 +35,6 @@ public class TimezoneService {
 
     public Timezone getByName(String name) {
         if (name == null) {
-            LOGGER.error("Name cannot be null");
             throw new IllegalArgumentException("Name cannot be null");
         }
         LOGGER.info("Getting timezone by name {}", name);
@@ -46,7 +44,6 @@ public class TimezoneService {
 
     public Optional<Timezone> getById(Long id) {
         if (id == null) {
-            LOGGER.error("Id cannot be null");
             throw new IllegalArgumentException("Id cannot be null");
         }
         LOGGER.info("Getting timezone by id {}", id);
@@ -55,7 +52,6 @@ public class TimezoneService {
 
     public void deleteById(Long id) {
         if (id == null) {
-            LOGGER.error("Id cannot be null");
             throw new IllegalArgumentException("Id cannot be null");
         }
         LOGGER.info("Deleting timezone by id {}", id);
