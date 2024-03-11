@@ -24,6 +24,12 @@ public class TagService {
         if (tag == null) {
             throw new IllegalArgumentException("Tag cannot be null");
         }
+        // Проверить, существует ли уже тег с этим именем
+        Tag existingTag = repository.findByName(tag.getName())
+            .orElse(null);
+        if (existingTag != null) {
+            throw new IllegalArgumentException("Tag with name " + tag.getName() + " already exists");
+        }
         LOGGER.info("Saving tag");
         return repository.save(tag);
     }

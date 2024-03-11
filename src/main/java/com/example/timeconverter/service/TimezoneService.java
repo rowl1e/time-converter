@@ -24,6 +24,12 @@ public class TimezoneService {
         if (timezone == null) {
             throw new IllegalArgumentException("Timezone cannot be null");
         }
+         // Проверить, существует ли уже часовой пояс с этим именем
+         Timezone existingTimezone = repository.findByName(timezone.getName())
+             .orElse(null);
+        if (existingTimezone != null) {
+            throw new IllegalArgumentException("Timezone with name " + timezone.getName() + " already exists");
+        }
         LOGGER.info("Saving timezone");
         return repository.save(timezone);
     }
