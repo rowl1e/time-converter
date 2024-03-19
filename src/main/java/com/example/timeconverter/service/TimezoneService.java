@@ -13,11 +13,13 @@ import org.slf4j.LoggerFactory;
 @Service
 public class TimezoneService {
     private final TimezoneRepository repository;
+    private final CacheService cacheService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TimezoneService.class);
 
-    public TimezoneService(TimezoneRepository repository) {
+    public TimezoneService(TimezoneRepository repository, CacheService cacheService) { 
         this.repository = repository;
+        this.cacheService = cacheService;
     }
 
     public Timezone save(Timezone timezone) {
@@ -31,6 +33,7 @@ public class TimezoneService {
             throw new IllegalArgumentException("Timezone with name " + timezone.getName() + " already exists");
         }
         LOGGER.info("Saving timezone");
+        cacheService.clear();
         return repository.save(timezone);
     }
 
@@ -62,5 +65,6 @@ public class TimezoneService {
         }
         LOGGER.info("Deleting timezone by id");
         repository.deleteById(id);
+        cacheService.clear();
     }
 }

@@ -36,6 +36,7 @@ public class ConversionService {
             throw new IllegalArgumentException("Conversion cannot be null");
         }
         LOGGER.info("Saving conversion");
+        cacheService.clear();
         return repository.save(conversion);
     }
 
@@ -66,6 +67,7 @@ public class ConversionService {
         }
         LOGGER.info("Deleting conversion by id");
         repository.deleteById(id);
+        cacheService.clear();
     }    
 
     public Conversion convertTime(ConversionRequest request, Conversion conversion) {
